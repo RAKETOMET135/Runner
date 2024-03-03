@@ -1,5 +1,4 @@
 let objects = document.getElementsByClassName("ground")
-let healthBar = document.getElementById("move-bar")
 
 let player
 let playerStyle
@@ -61,6 +60,9 @@ let gameOverAudio
 
 let audioMute = document.getElementById("audio-mute")
 let audioMuted = true
+
+let mobile_left = false
+let mobile_right = false
 
 
 function spawnPlayer(left_position, top_position) {
@@ -268,6 +270,8 @@ function jump(){
 }
 
 function moveLeft(){
+    mobile_left = false
+
     if (!player || !playerStyle) return
 
     if (!collisions[0]){
@@ -286,6 +290,8 @@ function moveLeft(){
 }
 
 function moveRight(){
+    mobile_right = false
+
     if (!player || !playerStyle) return
 
     if (!collisions[1]){
@@ -313,6 +319,10 @@ function playerFollowCamera(){
 
     leftScroll -= width/2
     topScroll -= height/2
+
+    if (window.innerWidth <= 800){
+        leftScroll += 200
+    }
 
     window.scrollTo(leftScroll, 0)
 }
@@ -831,6 +841,15 @@ function createScoreBar(){
     span.style.color = "blue"
 
     scoreBar.appendChild(span)
+
+    if (window.innerWidth <= 800){
+        holder.style.top = "10px"
+        holder.style.left = "255px"
+
+        audioMute.style.width = "40px"
+        audioMute.style.height = "40px"
+        audioMute.style.top = "10px"
+    }
 }
 
 function convertNumberToInteligentString(number){
@@ -905,6 +924,11 @@ function createOxygenBar(){
     decor.src = "LevelAssets/Oxygen.png"
 
     holder.appendChild(decor)
+
+    if (window.innerWidth <= 800){
+        holder.style.top = "85px"
+        holder.style.left = "100px"
+    }
 }
 
 function updateOxygenBar(){
@@ -1121,6 +1145,10 @@ function gameOver(){
         ]
         goodText.innerText = goodTextContent[getRandomNumber(0, goodTextContent.length-1)]
 
+        if (window.innerWidth <= 800){
+            goodText.style.fontSize = "20px"
+        }
+
         gameOverScreen.appendChild(goodText)
 
         gameOverDelay = 1
@@ -1163,6 +1191,58 @@ function gameOver(){
     }
 }
 
+function createMobileControls(){
+    let startY
+
+    function touchStart(event) {
+        startY = event.touches[0].clientY
+    }
+
+    function touchMove(event) {
+        let endY = event.touches[0].clientY;
+
+        if (endY < startY - 100) {
+            if (!jumpState) jump()
+        }
+    }
+
+    document.addEventListener('touchstart', touchStart)
+    document.addEventListener('touchmove', touchMove)
+
+    let mobile_left_button = document.createElement("div")
+    mobile_left_button.style.width = window.innerWidth/2 + "px"
+    mobile_left_button.style.height = window.innerHeight + "px"
+    mobile_left_button.style.position = "fixed"
+    mobile_left_button.style.top = "70px"
+    mobile_left_button.style.left = 0
+    mobile_left_button.style.zIndex = 1500
+
+    let mobile_right_button = document.createElement("div")
+    mobile_right_button.style.width = window.innerWidth/2 + "px"
+    mobile_right_button.style.height = window.innerHeight + "px"
+    mobile_right_button.style.position = "fixed"
+    mobile_right_button.style.top = "70px"
+    mobile_right_button.style.left = window.innerWidth/2 + "px"
+    mobile_right_button.style.zIndex = 1500
+
+    document.body.appendChild(mobile_left_button)
+    document.body.appendChild(mobile_right_button)
+
+    mobile_left_button.addEventListener("touchstart", () => {
+        moveLeftTrigger = true
+    })
+    mobile_left_button.addEventListener("touchend", () => {
+        moveLeftTrigger = false
+    })
+
+    mobile_right_button.addEventListener("touchstart", () => {
+        moveRightTrigger = true
+    })
+    mobile_right_button.addEventListener("touchend", () => {
+        moveRightTrigger = false
+    })
+}
+
 function runtime(){
     handleCollisions()
     checkGround()
@@ -1201,8 +1281,8 @@ function runtime(){
     if (collisions[2]) fixJump()
 
     if (gameOverDelay == 0){
-        if (moveLeftTrigger) moveLeft()
-        if (moveRightTrigger) moveRight()
+        if (moveLeftTrigger || mobile_left) moveLeft()
+        if (moveRightTrigger || mobile_right) moveRight()
         if (jumpTrigger) jump()
     }
 
@@ -1238,6 +1318,9 @@ spawnPlayer("400px", "250px")
 createOxygenBar()
 createScoreBar()
 
+if (window.innerWidth <= 800){   
+    createMobileControls()
+}
 
 audioMute.addEventListener("mousedown", () => {
     audioMuted = !audioMuted
