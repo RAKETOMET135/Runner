@@ -46,7 +46,7 @@ let oxygen = 100
 
 let scoreBar
 let score = 0
-let bestScore = localStorage.getItem("score")
+let bestScore = localStorage.getItem("score") || 0
 let span
 
 let gameOverDelay = 0
