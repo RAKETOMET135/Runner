@@ -123,9 +123,9 @@ body {
 }
 .barrier-2{
     width: 155px;
-    height: 275px;
+    height: 545px;
     position: absolute;
-    top: 270px;
+    top: 0px;
     left: 0px;
 }
 .barrier-3{
