@@ -1,0 +1,343 @@
+
+body {
+    overflow: hidden;
+}
+
+.background{
+    z-index: -100;
+    position: fixed;
+    left: -10px;
+    top: -500px;
+    width: 2560px;
+    height: 1600px;
+}
+
+.grass-def-data{
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    z-index: -2;
+}
+#grass-1{
+    top: 700px;
+}
+#grass-2{
+    top: 700px;
+    left: 150px;
+}
+#grass-3{
+    top: 700px;
+    left: 300px;
+}
+#grass-4{
+    top: 700px;
+    left: 400px;
+}
+#grass-5{
+    top: 700px;
+    left: 500px;
+}
+#grass-6{
+    top: 700px;
+    left: 650px;
+}
+#grass-7{
+    top: 700px;
+    left: 800px;
+}
+#grass-8{
+    top: 700px;
+    left: 950px;
+}
+#grass-9{
+    top: 700px;
+    left: 1100px;
+}
+#grass-10{
+    top: 700px;
+    left: 1150px;
+}
+#grass-11{
+    top: 700px;
+    left: 1300px;
+}
+#grass-12{
+    top: 700px;
+    left: 1350px;
+}
+
+
+.def-block{
+    position: absolute;
+    width: 250px;
+    height: 150px;
+}
+
+.plant-def-data{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: -1;
+
+    animation: flower 5s infinite;
+}
+#plant-1{
+    top: 650px;
+}
+#plant-2{
+    top: 650px;
+    left: 500px;
+}
+#plant-3{
+    top: 650px;
+    left: 800px;
+}
+#plant-4{
+    top: 650px;
+    left: 900px;
+}
+
+#tree-1{
+    width: 300px;
+    height: 500px;
+    position: absolute;
+    top: 270px;
+    z-index: -3;
+    left: -130px;
+}
+#tree-2{
+    width: 350px;
+    height: 500px;
+    position: absolute;
+    top: 270px;
+    z-index: -3;
+    left: 1150px;
+}
+
+.barrier-1{
+    width: 50px;
+    height: 500px;
+    position: absolute;
+    top: 270px;
+    left: 0px;
+}
+.barrier-2{
+    width: 155px;
+    height: 275px;
+    position: absolute;
+    top: 270px;
+    left: 0px;
+}
+.barrier-3{
+    width: 135px;
+    height: 60px;
+    position: absolute;
+    top: 700px;
+    left: 410px;
+}
+.barrier-4{
+    width: 100px;
+    height: 500px;
+    position: absolute;
+    top: 270px;
+    left: 1268px;
+}
+.barrier-5{
+    width: 325px;
+    height: 300px;
+    position: absolute;
+    top: 270px;
+    left: 1165px;
+}
+
+.health-bar{
+    position: fixed;
+    left: 50%;
+    translate: -50%;
+    top: 90%;
+}
+.health-bar img{
+    width: 50px;
+    height: 50px;
+    display: inline;
+}
+#bar{
+    width: 150px;
+    height: 30px;
+    display: inline-block;
+    position: absolute;
+    top: 13%;
+    left: 125%;
+    border-radius: 15px;
+    border: white 4px solid;
+}
+#move-bar{
+    width: 150px;
+    height: 30px;
+    position: absolute;
+    top: 21%;
+    left: 133%;
+    background-color: red;
+    z-index: -1;
+}
+
+
+
+.platform{
+    width: 1500px;
+    height: 195px;
+    /*background-color: green;*/
+
+    position: absolute;
+    top: 740px;
+    left: 0px;
+
+    background-image: url(LevelAssets/Grass_ground.png);
+    z-index: 1;
+}
+
+.block{
+    width: 150px;
+    height: 150px;
+    /*background-color: aqua;*/
+
+    position: absolute;
+    top: 400px;
+    left: 750px;
+}
+#block1{
+    left: 350px;
+    top: 692px;
+    width: 250px;
+    height: 100px;
+    z-index: 0;
+}
+#block2{
+    top: 400px;
+    left: 750px;
+    animation: orb 5s infinite;
+}
+
+.design-o{
+    position: absolute;
+    width: 1350px;
+    height: 800px;
+    background-color: rgba(248, 216, 36, 0.3);
+    left: -10px;
+    top: -10px;
+    z-index: -50;
+    border-right: solid rgba(248, 216, 36, 0.5) 5px;
+}
+
+#audio-mute{
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(75, 37, 2);
+    border: 2px solid rgb(248, 216, 36);
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+@keyframes orb{
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(180deg);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@keyframes oxygen{
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.1) rotate(25deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(-25deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes gameOver{
+    0% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 1);
+    }
+}
+
+@keyframes gameOverText {
+    0% {
+        color: rgba(248, 216, 36, 0);
+    }
+    100% {
+        color: rgba(248, 216, 36, 1);
+    }
+}
+
+@keyframes flower {
+    0% {
+        scale: 1;
+        rotate: 0;
+    }
+    50% {
+        scale: 1.04;
+        rotate: 1deg;
+    }
+    100% {
+        scale: 1;
+        rotate: 0;
+    }
+}
+
+@keyframes rose {
+    0% {
+        scale: 1;
+        rotate: 0;
+        filter: drop-shadow(0 0 5px #ff0000);
+    }
+    25% {
+        scale: 1.04;
+        rotate: 5deg;
+        filter: drop-shadow(0 0 10px #ff0000);
+    }
+    50% {
+        scale: 1;
+        rotate: 0;
+        filter: drop-shadow(0 0 5px #ff0000);
+    }
+    75% {
+        scale: 1.04;
+        rotate: -5deg;
+        filter: drop-shadow(0 0 10px #ff0000);
+    }
+    100% {
+        scale: 1;
+        rotate: 0;
+        filter: drop-shadow(0 0 5px #ff0000);
+    }
+}
+
+@keyframes gear {
+    0% {
+        rotate: 0;
+        scale: 0.1;
+    }
+    50% {
+        rotate: 180deg;
+        scale: 2;
+    }
+    100% {
+        rotate: 360deg;
+        scale: 0.1;
+    }
+}
