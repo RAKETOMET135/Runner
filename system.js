@@ -327,7 +327,7 @@ function playerFollowCamera(){
         leftScroll += 200
     }
 
-    window.scrollTo(leftScroll, 0)
+    window.scrollTo(leftScroll, 0, "smooth")
 }
 
 function animatePlayer(){
