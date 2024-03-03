@@ -46,7 +46,10 @@ let oxygen = 100
 let scoreBar
 let score = 0
 let bestScore = localStorage.getItem("score")
-if (!bestScore) bestScore = 0; localStorage.setItem("score", 0)
+if (!bestScore){
+    bestScore = 0
+    localStorage.setItem("score", 0)
+} 
 let span
 
 let gameOverDelay = 0
