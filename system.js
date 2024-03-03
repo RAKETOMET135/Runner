@@ -4,7 +4,6 @@ let healthBar = document.getElementById("move-bar")
 let player
 let playerStyle
 let playerSize = [0, 0]
-let playerHealth = 100
 
 let playerImage
 
@@ -380,14 +379,6 @@ function animatePlayer(){
         }
 
     }
-}
-
-function updateHealthBar(){
-    let barMoveDistance = playerHealth * 1.5
-
-    healthBarStyle = window.getComputedStyle(healthBar)
-
-    //healthBarStyle.width = barMoveDistance
 }
 
 function getRandomNumber(rangeMin, rangeMax){
@@ -1221,7 +1212,6 @@ function runtime(){
     handleKeys()
     handleRoses()
     handleMetalGears()
-    updateHealthBar()
     updateOxygenBar()
     updateScoreBar()
 
