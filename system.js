@@ -1191,6 +1191,36 @@ function gameOver(){
     }
 }
 
+function createInfoMessage(){
+    let info = document.createElement("div")
+    info.style.width = window.innerWidth*2 + "px"
+    info.style.height = window.innerHeight*2 + "px"
+    info.style.backgroundColor = "black"
+    info.style.zIndex = 9999
+    info.style.position = "fixed"
+    info.style.left = 0
+    info.style.top = "-500px"
+    
+    let txt = document.createElement("p")
+    txt.style.width = "250px"
+    txt.style.height = "500px"
+    txt.style.color = "white"
+    txt.style.zIndex = 10000
+    txt.style.position = "fixed"
+    txt.style.fontFamily = "fantasy"
+    txt.style.top = "25%"
+    txt.style.left = "50%"
+    txt.style.transform = "translate(-50%)"
+    txt.style.fontSize = "50px"
+    txt.style.textAlign = "center"
+
+    txt.innerText = "Open this website on PC"
+
+
+    document.body.appendChild(info)
+    document.body.appendChild(txt)
+}
+
 function createMobileControls(){
     let startY
 
@@ -1319,7 +1349,8 @@ createOxygenBar()
 createScoreBar()
 
 if (window.innerWidth <= 800){   
-    createMobileControls()
+    //createMobileControls()
+    createInfoMessage()
 }
 
 audioMute.addEventListener("mousedown", () => {
