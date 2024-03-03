@@ -150,37 +150,6 @@ body {
     left: 1165px;
 }
 
-.health-bar{
-    position: fixed;
-    left: 50%;
-    translate: -50%;
-    top: 90%;
-}
-.health-bar img{
-    width: 50px;
-    height: 50px;
-    display: inline;
-}
-#bar{
-    width: 150px;
-    height: 30px;
-    display: inline-block;
-    position: absolute;
-    top: 13%;
-    left: 125%;
-    border-radius: 15px;
-    border: white 4px solid;
-}
-#move-bar{
-    width: 150px;
-    height: 30px;
-    position: absolute;
-    top: 21%;
-    left: 133%;
-    background-color: red;
-    z-index: -1;
-}
-
 
 
 .platform{
