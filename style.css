@@ -310,3 +310,21 @@ body {
         scale: 0.1;
     }
 }
+
+@keyframes title-action {
+    0% {
+        transform: scale(1) translate(-50%);
+        rotate: 0;
+        filter: drop-shadow(0 0 0 #ffffff);
+    }
+    50% {
+        transform: scale(1.5) translate(-30%);
+        rotate: 1deg;
+        filter: drop-shadow(0 0 5px #ffffff);
+    }
+    100% {
+        transform: scale(1) translate(-50%);
+        rotate: 0;
+        filter: drop-shadow(0 0 0 #ffffff);
+    }
+}

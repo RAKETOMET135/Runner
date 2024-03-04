@@ -56,10 +56,9 @@ let gameOverDelay = 0
 let gameOverScreen
 let goodText
 
-let backgroundMusic = new Audio("Audio/BackgroundMusic.mp3")
-backgroundMusic.loop = true
-backgroundMusic.volume = 0.3
 let gameOverAudio
+let backgroundAudio = []
+let currentBackgroundAudio = null
 
 let audioMute = document.getElementById("audio-mute")
 let audioMuted = true
@@ -67,6 +66,82 @@ let audioMuted = true
 let mobile_left = false
 let mobile_right = false
 
+let startingScreen
+
+function createBackgroundAudioArray(){
+    for (let i = 1; i <= 4; i++){
+        let currentAudio = new Audio("Audio/Background_"+ i +  ".mp3")
+        currentAudio.volume = 0.3
+
+        backgroundAudio.push(currentAudio)
+    }
+}
+
+function createStartingScreen(){
+    startingScreen = document.createElement("div")
+    document.body.appendChild(startingScreen)
+    startingScreen.style.width = window.innerWidth + "px"
+    startingScreen.style.height = window.innerHeight + "px"
+    startingScreen.style.position = "fixed"
+    startingScreen.style.left = 0
+    startingScreen.style.top = 0
+    startingScreen.style.backgroundImage = "url(LevelAssets/Background.png)"
+    let size = window.innerWidth
+    if (window.innerHeight > size) size = window.innerHeight
+    size += 150
+    if (size < 1500) size = 1500
+    startingScreen.style.backgroundSize = size + "px"
+    startingScreen.style.zIndex = 150
+
+    let title = document.createElement("h1")
+    startingScreen.appendChild(title)
+    title.style.width = "350px"
+    title.style.height = "250px"
+    title.style.position = "absolute"
+    title.style.left = "50%"
+    title.style.transform = "translate(-50%)"
+    title.style.top = "150px"
+    title.style.textAlign = "center"
+    title.style.fontFamily = "fantasy"
+    title.style.fontSize = "100px"
+    title.style.color = "rgb(248, 216, 36)"
+    title.style.filter = "drop-shadow(0 0 2px rgb(248, 216, 36))"
+    title.innerText = "Runner"
+
+    let penguin = document.createElement("img")
+    startingScreen.appendChild(penguin)
+    penguin.style.width = "500px"
+    penguin.style.height = "500px"
+    penguin.style.position = "absolute"
+    penguin.style.left = "50%"
+    penguin.style.transform = "translate(-50%)"
+    penguin.style.top = "160px"
+    penguin.style.filter = "drop-shadow(0 0 10px #ffffff)"
+    penguin.src = "ImageAnimations/Idle1.png"
+
+    let action = document.createElement("p")
+    startingScreen.appendChild(action)
+    action.style.width = "500px"
+    action.style.height = "100px"
+    action.style.position = "absolute"
+    action.style.left = "50%"
+    action.style.top = "600px"
+    action.style.fontFamily = "fantasy"
+    action.style.textAlign = "center"
+    action.style.color = "#ffffff"
+    action.style.fontSize = "50px"
+    action.style.animationName = "title-action"
+    action.style.animationDuration = "2s"
+    action.style.animationIterationCount = "infinite"
+    action.innerText = "Press Any Key"
+
+    document.body.addEventListener("keypress", () => {
+        if (startingScreen){
+            startingScreen.remove()
+            startingScreen = null
+        }
+    })
+}
 
 function spawnPlayer(left_position, top_position) {
     player = document.createElement("div")
@@ -805,7 +880,7 @@ function createScoreBar(){
     holder.style.left = "50%"
     holder.style.transform = "translate(-50%)"
     holder.style.zIndex = 135
-    holder.style.top = "810px"
+    holder.style.top = "50px"
     holder.style.backgroundColor = "rgb(75, 37, 2)"
     holder.style.borderRadius = "25px"
     holder.style.border = "solid 2px rgb(248, 216, 36)"
@@ -896,9 +971,9 @@ function createOxygenBar(){
     holder.style.position = "fixed"
     holder.style.width = window.innerWidth -150 + "px"
     holder.style.height = "25px"
-    holder.style.left = "75px"
+    holder.style.left = "125px"
     holder.style.zIndex = 135
-    holder.style.top = "860px"
+    holder.style.top = "19px"
     holder.style.backgroundColor = "rgb(75, 37, 2)"
     holder.style.borderRadius = "25px"
 
@@ -1144,7 +1219,10 @@ function gameOver(){
         let goodTextContent = [
             "Game over!", "You are going to make it next time!", "It was not this time!", "You are doing great!", "Nice try!", "Next time!", "Did you tryhard?",
             "Have you reached 135K+ score?", "I have done 1M with one hand, my other hand was starting a business!", "Emotional damage!", "Áááááááááááááááááá!",
-            "You are not a speedwalker, are you?", "That was close!", "Have you even tried to jump?"
+            "You are not a speedwalker, are you?", "That was close!", "Have you even tried to jump?", "Have you even tried to play this game?", "I think I'am better :)",
+            "Great effort!", "Very decent performance!", "You should try harder!", "I'am noting down your effort!", "Do you know that you have to avoid obstacles?",
+            "Nice! Try to use your skill next time (if you have)!", "I'am impressed!", "You are bad!", "Atleast you have managed to do the first jump!",
+            "Do you know how to play this game?", "Press space or up arrow or W to jump. <-- Pro tip", "It is easy! oh... wait, your bad", "Tip: be good"
         ]
         goodText.innerText = goodTextContent[getRandomNumber(0, goodTextContent.length-1)]
 
@@ -1277,6 +1355,8 @@ function createMobileControls(){
 }
 
 function runtime(){
+    if (startingScreen) return
+
     handleCollisions()
     checkGround()
 
@@ -1331,16 +1411,30 @@ function runtime(){
 
     handleSectorGeneration()
 
-    if (backgroundMusic.paused && audioMuted == false && gameOverDelay == 0){
-        backgroundMusic.play()
-    }
-    else{
-        if (!backgroundMusic.paused && audioMuted == true){
-            backgroundMusic.pause()
-        }
+    if (backgroundAudio.length > 0){
+        let canPlayBackgroundAudio = false
 
-        if (gameOverDelay != 0){
-            backgroundMusic.pause()
+        if (!audioMuted && gameOverDelay == 0) canPlayBackgroundAudio = true
+
+        if (!currentBackgroundAudio){
+            currentBackgroundAudio = backgroundAudio[getRandomNumber(0, backgroundAudio.length-1)]
+
+            currentBackgroundAudio.addEventListener("ended", () => {
+                let new_currentBackgroundAudio = backgroundAudio[getRandomNumber(0, backgroundAudio.length-1)]
+                while (new_currentBackgroundAudio == currentBackgroundAudio){
+                    new_currentBackgroundAudio = backgroundAudio[getRandomNumber(0, backgroundAudio.length-1)]
+                }
+                currentBackgroundAudio = new_currentBackgroundAudio
+            })
+        } 
+
+        if (canPlayBackgroundAudio){
+            if (currentBackgroundAudio.paused){
+                currentBackgroundAudio.play()
+            }
+        }
+        else{
+            currentBackgroundAudio.pause()
         }
     }
 }
@@ -1350,10 +1444,14 @@ function runtime(){
 spawnPlayer("400px", "250px")
 createOxygenBar()
 createScoreBar()
+createBackgroundAudioArray()
 
 if (window.innerWidth <= 800){   
     //createMobileControls()
     createInfoMessage()
+}
+else{
+    createStartingScreen()
 }
 
 audioMute.addEventListener("mousedown", () => {
