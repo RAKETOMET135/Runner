@@ -3,6 +3,13 @@ body {
     overflow: hidden;
 }
 
+.none-select{
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
 .background{
     z-index: -100;
     position: fixed;

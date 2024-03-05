@@ -106,6 +106,7 @@ function createStartingScreen(){
     title.style.fontSize = "100px"
     title.style.color = "rgb(248, 216, 36)"
     title.style.filter = "drop-shadow(0 0 2px rgb(248, 216, 36))"
+    title.classList.add("none-select")
     title.innerText = "Runner"
 
     let penguin = document.createElement("img")
@@ -117,6 +118,7 @@ function createStartingScreen(){
     penguin.style.transform = "translate(-50%)"
     penguin.style.top = "160px"
     penguin.style.filter = "drop-shadow(0 0 10px #ffffff)"
+    penguin.classList.add("none-select")
     penguin.src = "ImageAnimations/Idle1.png"
 
     let action = document.createElement("p")
@@ -133,7 +135,21 @@ function createStartingScreen(){
     action.style.animationName = "title-action"
     action.style.animationDuration = "2s"
     action.style.animationIterationCount = "infinite"
+    action.classList.add("none-select")
     action.innerText = "Press Any Key"
+
+    let help = document.createElement("img")
+    startingScreen.appendChild(help)
+    help.style.width = "400px"
+    help.style.height = "400px"
+    help.style.position = "absolute"
+    help.style.left = "70%"
+    help.style.top = "280px"
+    help.style.backgroundColor = "#ffffd1"
+    help.style.borderRadius = "25px"
+    help.style.filter = "drop-shadow(0 0 10px #ffffd1)"
+    help.classList.add("none-select")
+    help.src = "LevelAssets/Tutorial.png"
 
     document.body.addEventListener("keypress", () => {
         if (startingScreen){
@@ -898,6 +914,7 @@ function createScoreBar(){
     scoreBar.style.top = "-20px"
     scoreBar.style.textAlign = "right"
     scoreBar.style.left = "10px"
+    scoreBar.classList.add("none-select")
     scoreBar.innerText = "0"
 
     holder.appendChild(scoreBar)
@@ -1215,6 +1232,7 @@ function gameOver(){
         goodText.style.animationDuration = "2s"
         goodText.style.animationIterationCount = 1
         goodText.style.font = "fantasy"
+        goodText.classList.add("none-select")
 
         let goodTextContent = [
             "Game over!", "You are going to make it next time!", "It was not this time!", "You are doing great!", "Nice try!", "Next time!", "Did you tryhard?",
