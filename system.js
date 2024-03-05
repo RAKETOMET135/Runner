@@ -1220,7 +1220,7 @@ function gameOver(){
             "Game over!", "You are going to make it next time!", "It was not this time!", "You are doing great!", "Nice try!", "Next time!", "Did you tryhard?",
             "Have you reached 135K+ score?", "I have done 1M with one hand, my other hand was starting a business!", "Emotional damage!", "Áááááááááááááááááá!",
             "You are not a speedwalker, are you?", "That was close!", "Have you even tried to jump?", "Have you even tried to play this game?", "I think I'm better :)",
-            "Great effort!", "Very decent performance!", "You should try harder!", "I'am noting down your effort!", "Do you know that you have to avoid obstacles?",
+            "Great effort!", "Very decent performance!", "You should try harder!", "I'm noting down your effort!", "Do you know that you have to avoid obstacles?",
             "Nice! Try to use your skill next time (if you have)!", "I'm impressed!", "You are bad!", "Atleast you have managed to do the first jump!",
             "Do you know how to play this game?", "Press space or up arrow or W to jump. <-- Pro tip", "It is easy! oh... wait, your bad", "Tip: be good"
         ]
